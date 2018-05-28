@@ -72,7 +72,7 @@ def train_epoch(model, training_data, crit, optimizer):
         total_loss += loss.data[0]
 
     train_loss = total_loss/n_total_words.float()
-    train_accu = n_total_correct/n_total_words.float()
+    train_accu = n_total_correct/n_total_words
     print("==>train_loss = \n",train_loss)
     print("==>train_accu = \n",train_accu)
     print("==>return train_epoch\n")
