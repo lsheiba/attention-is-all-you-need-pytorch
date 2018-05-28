@@ -107,7 +107,7 @@ def eval_epoch(model, validation_data, crit):
         n_total_correct += n_correct
         total_loss += loss.data[0]
 
-    return total_loss/n_total_words, n_total_correct/n_total_words
+    return total_loss/n_total_words.float(), n_total_correct/n_total_words
 
 def train(model, training_data, validation_data, crit, optimizer, opt):
     ''' Start training '''
