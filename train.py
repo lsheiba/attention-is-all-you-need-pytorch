@@ -50,6 +50,7 @@ def train_epoch(model, training_data, crit, optimizer):
             desc='  - (Training)   ', leave=False):
 
         # prepare data
+        print("===>batch = ",batch)
         src, tgt = batch
         gold = tgt[0][:, 1:]
 
@@ -71,15 +72,10 @@ def train_epoch(model, training_data, crit, optimizer):
         n_total_correct += n_correct
         total_loss += loss.data[0]
 
- #   train_loss = total_loss/n_total_words.float()
- #   train_accu = n_total_correct/n_total_words
- #   print("==>train_loss = \n",train_loss)
- #   print("==>train_accu = \n",train_accu)
- #   print("==>return train_epoch\n")
+ 
     
     return total_loss/n_total_words.float(), n_total_correct/n_total_words
- #   return train_loss, train_accu
-
+ 
 def eval_epoch(model, validation_data, crit):
     ''' Epoch operation in evaluation phase '''
 
@@ -142,7 +138,6 @@ def train(model, training_data, validation_data, crit, optimizer, opt):
                   ppl=math.exp(min(train_loss, 100)), accu=100*train_accu,
                   elapse=(time.time()-start)/60))
 
-        print("==>START\n")
         start = time.time()
         valid_loss, valid_accu = eval_epoch(model, validation_data, crit)
         print('  - (Validation) ppl: {ppl: 8.5f}, accuracy: {accu:3.3f} %, '\
@@ -161,14 +156,18 @@ def train(model, training_data, validation_data, crit, optimizer, opt):
         if opt.save_model:
             if opt.save_mode == 'all':
                 model_name = opt.save_model + '_accu_{accu:3.3f}.chkpt'.format(accu=100*valid_accu)
+                print(model_name)
                 torch.save(checkpoint, model_name)
             elif opt.save_mode == 'best':
                 model_name = opt.save_model + '.chkpt'
+                print(model_name)
                 if valid_accu >= max(valid_accus):
                     torch.save(checkpoint, model_name)
                     print('    - [Info] The checkpoint file has been updated.')
 
         if log_train_file and log_valid_file:
+            print(log_train_file)
+            print(log_valid_file)
             with open(log_train_file, 'a') as log_tf, open(log_valid_file, 'a') as log_vf:
                 log_tf.write('{epoch},{loss: 8.5f},{ppl: 8.5f},{accu:3.3f}\n'.format(
                     epoch=epoch_i, loss=train_loss,
