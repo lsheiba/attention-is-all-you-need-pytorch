@@ -38,6 +38,7 @@ def get_performance(crit, pred, gold, smoothing=False, num_class=None):
 def train_epoch(model, training_data, crit, optimizer):
     ''' Epoch operation in training phase'''
 
+    print("==>train_epoch\n")
     model.train()
 
     total_loss = 0
@@ -70,6 +71,7 @@ def train_epoch(model, training_data, crit, optimizer):
         n_total_correct += n_correct
         total_loss += loss.data[0]
 
+    print("==>return train_epoch\n")
     return total_loss/n_total_words, n_total_correct/n_total_words
 
 def eval_epoch(model, validation_data, crit):
@@ -119,6 +121,8 @@ def train(model, training_data, validation_data, crit, optimizer, opt):
             log_vf.write('epoch,loss,ppl,accuracy\n')
 
     valid_accus = []
+
+    print("==> Training Loop\n")
     for epoch_i in range(opt.epoch):
         print('[ Epoch', epoch_i, ']')
 
