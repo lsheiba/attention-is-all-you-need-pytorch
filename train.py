@@ -72,7 +72,13 @@ def train_epoch(model, training_data, crit, optimizer):
         total_loss += loss.data[0]
 
     print("==>return train_epoch\n")
-    return total_loss/n_total_words, n_total_correct/n_total_words
+    train_loss = total_loss/n_total_words
+    train_accu = n_total_correct/n_total_words
+    print("==>train_loss = \n",train_loss)
+    print("==>train_accu = \n",train_accu)
+    
+ #   return total_loss/n_total_words, n_total_correct/n_total_words
+    return train_loss, train_accu
 
 def eval_epoch(model, validation_data, crit):
     ''' Epoch operation in evaluation phase '''
