@@ -128,6 +128,9 @@ def train(model, training_data, validation_data, crit, optimizer, opt):
 
         start = time.time()
         train_loss, train_accu = train_epoch(model, training_data, crit, optimizer)
+        print("==>train_loss = \n",train_loss)
+        print("==>train_accu = \n",train_accu)
+        
         print('  - (Training)   ppl: {ppl: 8.5f}, accuracy: {accu:3.3f} %, '\
               'elapse: {elapse:3.3f} min'.format(
                   ppl=math.exp(min(train_loss, 100)), accu=100*train_accu,
