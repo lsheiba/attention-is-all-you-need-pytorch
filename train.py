@@ -71,14 +71,14 @@ def train_epoch(model, training_data, crit, optimizer):
         n_total_correct += n_correct
         total_loss += loss.data[0]
 
-    train_loss = total_loss/n_total_words.float()
-    train_accu = n_total_correct/n_total_words
-    print("==>train_loss = \n",train_loss)
-    print("==>train_accu = \n",train_accu)
-    print("==>return train_epoch\n")
+ #   train_loss = total_loss/n_total_words.float()
+ #   train_accu = n_total_correct/n_total_words
+ #   print("==>train_loss = \n",train_loss)
+ #   print("==>train_accu = \n",train_accu)
+ #   print("==>return train_epoch\n")
     
- #   return total_loss/n_total_words, n_total_correct/n_total_words
-    return train_loss, train_accu
+    return total_loss/n_total_words.float(), n_total_correct/n_total_words
+ #   return train_loss, train_accu
 
 def eval_epoch(model, validation_data, crit):
     ''' Epoch operation in evaluation phase '''
@@ -134,14 +134,15 @@ def train(model, training_data, validation_data, crit, optimizer, opt):
 
         start = time.time()
         train_loss, train_accu = train_epoch(model, training_data, crit, optimizer)
-        print("==>train_loss = \n",train_loss)
-        print("==>train_accu = \n",train_accu)
+        print("==>train_loss = ",train_loss)
+        print("==>train_accu = ",train_accu)
 
         print('  - (Training)   ppl: {ppl: 8.5f}, accuracy: {accu:3.3f} %, '\
               'elapse: {elapse:3.3f} min'.format(
                   ppl=math.exp(min(train_loss, 100)), accu=100*train_accu,
                   elapse=(time.time()-start)/60))
 
+        print("==>START\n")
         start = time.time()
         valid_loss, valid_accu = eval_epoch(model, validation_data, crit)
         print('  - (Validation) ppl: {ppl: 8.5f}, accuracy: {accu:3.3f} %, '\
