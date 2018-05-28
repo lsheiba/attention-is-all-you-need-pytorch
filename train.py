@@ -50,7 +50,6 @@ def train_epoch(model, training_data, crit, optimizer):
             desc='  - (Training)   ', leave=False):
 
         # prepare data
-        print("===>batch = ",batch)
         src, tgt = batch
         gold = tgt[0][:, 1:]
 
