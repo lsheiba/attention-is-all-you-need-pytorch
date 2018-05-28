@@ -265,6 +265,7 @@ def main():
         transformer = transformer.cuda()
         crit = crit.cuda()
 
+    print("===>TRAIN\n")
     train(transformer, training_data, validation_data, crit, optimizer, opt)
 
 if __name__ == '__main__':
